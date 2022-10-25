@@ -1,0 +1,23 @@
+.rotateEffect {
+  -webkit-animation: rotateY 3s linear infinite;
+  animation: rotateY 3s linear infinite;
+  transition: all 3s ease;  
+  transform-style: preserve-3d;
+  transform-origin: center; 
+}
+@-webkit-keyframes rotateY {
+  to { -webkit-transform: rotateX(360deg); }
+}
+@keyframes rotateY {
+  to { transform: rotateX(360deg); }
+}
+.card{
+  transition: 500ms linear;
+  cursor: pointer;
+}
+.card img{
+  transition: all 500ms ease;
+}
+.card:hover img.user{
+transform: scaleY(1.2) translateY(-20px);
+}
