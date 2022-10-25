@@ -27,7 +27,7 @@ export const CuratedPlaylist = () => {
   return (
     <Section>
       <div
-        className={`card hover:from-amber-400 hover:to-amber-600 hover:bg-gradient-to-bl flex justify-between rounded-3xl py-2 px-4 overflow-hidden h-96 relative bg-gradient-to-t from-cyan-600 to-green text-white group ${Style.card}`}
+        className={`card overflow-hidden lg:hover:overflow-visible hover:from-amber-400 hover:to-green hover:bg-gradient-to-bl flex justify-between rounded-3xl py-2 px-4 h-96 relative bg-gradient-to-t from-cyan-600 to-green text-white group w-full`}
       >
         <div className="flex flex-col justify-around relative z-20 w-full">
           <div className="card-head">
@@ -79,32 +79,35 @@ export const CuratedPlaylist = () => {
           </div>
         </div>
 
-        {/* =====Animated Effect =========*/}
-        <div
-          className={`animate-pulse group-hover:animate-ping min-w-700 flex flex-row-reverse lg:flex-row justify-end absolute -top-28 lg:top-0 lg:right-0 -rotate-90 lg:rotate-0  ml-10 pointer-events-none`}
-        >
-          <Image
-            src={"/icons/LayerEffect.svg"}
-            alt="Playlist"
-            height={500}
-            width={500}
-          ></Image>
-        </div>
-        {/* ========/End==== */}
+        <div className="absolute -z- right-0 h-full lg:static w-full">
+          {/* =====Animated Effect =========*/}
+          <div
+            className={`animate-pulse overflow-hidden rounded-3xl flex flex-row-reverse lg:flex-row justify-end absolute h-full w-full max-h-96 -top-28 lg:top-0 lg:left-0 -rotate-90 lg:rotate-0  ml-10 pointer-events-none ${Style.rotateEffect}`}
+          >
+            <Image
+              src={"/icons/LayerEffect.svg"}
+              alt="Playlist"
+              layout="fill"
+              className="object-cover"
+              priority
+            ></Image>
+          </div>
+          {/* ========/End==== */}
 
-        {/* =======Artist Avatar ======= */}
-        <div
-          className={`ml-7 h-full w-full -bottom-5 hidden relative lg:block pointer-events-none`}
-          style={{ maxWidth: "350px" }}
-        >
-          <Image
-            src={"/images/01.png"}
-            alt="Playlist"
-            layout="fill"
-            className="z-0 object-cover group-hover:scale-y-125 group-hover:scale-x-125 transition-all"
-          ></Image>
+          {/* =======Artist Avatar ======= */}
+          <div
+            className={`ml-7 h-full w-full -bottom-5 hidden relative lg:block pointer-events-none ${Style.resetFlow}`}
+            style={{ maxWidth: "350px" }}
+          >
+            <Image
+              src={"/images/01.png"}
+              alt="Playlist"
+              layout="fill"
+              className="z-0 object-cover h-full group-hover:scale-110 group-hover:origin-bottom transition-all"
+            ></Image>
+          </div>
+          {/* ================ */}
         </div>
-        {/* ================ */}
       </div>
     </Section>
   );

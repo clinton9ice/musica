@@ -251,7 +251,7 @@ export const Player = ({ control }) => {
         });
       }
     };
-  }, [ count, player, seek]);
+  }, [count, player, seek]);
 
   return (
     <section className="backdrop-blur-lg  flex-wrap lg:nowrap rounded-md p-3 flex items-center justify-between fixed bottom-0 right-0 left-0 m-auto  z-50">
@@ -293,15 +293,16 @@ export const Player = ({ control }) => {
           {/* ==========Play/Pause control============ */}
           {!player.playing ? (
             <button
-              className="play btn hover:bg-amber-400 focus:bg-amber-400   bg-amber-200 h-10 w-10 text-white shadow-amber-300 shadow font-bold  rounded-full flex-shrink-0"
+              type="button"
               onClick={() => playAudio(audioRef.current)}
+              className="btn after:h-8 after:w-8 after:rounded-full after:border-2 after:border-amber-100 after:transition-all after:animate-ping after:absolute after:left-0 after:top-0 after:right-0 after:m-auto after:bottom-0  relative bg-amber-300 h-10 w-10 transition-all leading-5  text-white rounded-full flex-shrink-0"
             >
               <i className="ri ri-play-fill"></i>
             </button>
           ) : (
             <button
               onClick={pause}
-              className="play btn hover:text-white bg-amber-300 shadow-inner shadow-amber-200 font-bold animate- border-amber-300 border h-10 w-10 text-white rounded-full flex-shrink-0"
+              className="play btn lg:hover:text-white bg-amber-300 shadow-inner shadow-amber-200 font-bold animate- border-amber-300 border h-10 w-10 text-white rounded-full flex-shrink-0"
             >
               <i className="ri ri-pause-fill"></i>
             </button>

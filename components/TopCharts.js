@@ -30,11 +30,11 @@ export const TopCharts = () => {
   };
 
   return (
-    <section className={`w-full lg:px-10 py-5`}>
+    <section className={`w-full max-w-xl lg:px-10 py-5 ml-auto`}>
       <h2 className=" text-xl font-medium">Top Charts</h2>
       <ul
         className="list overflow-y-auto py-4"
-        style={{ maxHeight: 450 + "px" }}
+        style={{ maxHeight: "450px" }}
       >
         {charts.length > 0
           ? charts.map((chart) => {

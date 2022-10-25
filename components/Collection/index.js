@@ -39,11 +39,20 @@ export const Collections = () => {
           />
           <div className="card-footer absolute top-0 left-0 w-full h-full bg-gradient-to-t from-dark-100 to-transparent flex items-end p-3 overflow-hidden">
             <div
-              className="transition delay-100 group-hover:-translate-y-2
+              className="transition w-full flex items-center justify-between delay-100 group-hover:-translate-y-2
                 "
             >
-              <h3 className="font-medium">{item.album}</h3>
-              <p className="text-gray text-sm">{item.artist}</p>
+              <div>
+                <h3 className="font-medium">{item.album}</h3>
+                <p className="text-gray text-sm">{item.artist}</p>
+              </div>
+
+              <button
+                type="button"
+                className="btn after:h-8 after:w-8 after:rounded-full after:border-2 after:border-amber-100 after:transition-all after:animate-ping after:absolute after:left-0 after:top-0 after:right-0 after:m-auto after:bottom-0  relative bg-amber-300 h-10 w-10 transition-all leading-5  text-white rounded-full flex-shrink-0 lg:translate-y-20 delay-75 lg:group-hover:translate-y-0"
+              >
+                <i className="ri ri-play-fill"></i>
+              </button>
             </div>
           </div>
         </div>

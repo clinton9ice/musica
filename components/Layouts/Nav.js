@@ -59,10 +59,7 @@ export const Nav = () => {
             placeholder="Search Artist"
             value={input}
             onChange={getInput}
-            onFocus={() => setFocus(true)}
-            onBlur={(e) => {
-              input.trim().length === 0 && setFocus(false);
-            }}
+            onClick={() => setFocus(!isFocused)}
           />
         </form>
         {/* ======/End=== */}
