@@ -254,7 +254,7 @@ export const Player = ({ control }) => {
   }, [count, player, seek]);
 
   return (
-    <section className="dark: backdrop-blur-lg flex-wrap lg:nowrap rounded-md p-3 flex items-center justify-between fixed bottom-0 right-0 left-0 m-auto  z-40">
+    <section className="backdrop-blur-sm dark:from-dark-300 from-warmGray-50 bg-gradient-to-r  flex-wrap lg:nowrap rounded-t-xl p-3 flex items-center justify-between fixed bottom-0 right-0 left-0 m-auto  z-40">
       {/* ====Player Title=========== */}
       <div className="player-h flex flex-shrink-0 items-center  justify-between gap-3 cursor-pointer">
         <div className="img-thumbnail h-12 w-12 rounded-md dark:bg-warmGray-400 bg-warmGray-200 animate"></div>

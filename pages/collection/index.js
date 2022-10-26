@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { useState } from "react";
-import { Collections, Likes } from "../../components";
+import { Collections, Likes, Playlist } from "../../components";
 
 const Collection = () => {
   const [tabs, setTabs] = useState([
@@ -35,7 +35,7 @@ const Collection = () => {
             <button
               onClick={() => toggleTab(i)}
               key={tab.name}
-              className={`btn p-2 capitalize px-3 text-sm rounded-3xl border transition-all hover:text-white border-amber-300 text-amber-400 ${
+              className={`btn p-2 capitalize px-3 text-sm rounded-3xl border transition-all hover:dark:text-white border-amber-300 text-amber-400 ${
                 tab.active && "bg-amber-300 text-dark-100 font-medium"
               }`}
             >
@@ -49,7 +49,25 @@ const Collection = () => {
         {tabs.map((tab) => {
           if (tab.active) {
             return tab.name === "likes" ? (
-              <Likes key={tab.name} />
+              <>
+                <Likes key={tab.name} /> <br />
+                <Playlist
+                  playlist={[
+                    {
+                      name: "(Odo) Kizz Daniel Ft Empire",
+                      albumType: "Feature",
+                      duration: "2:56:00",
+                      favourite: false,
+                    },
+                    {
+                      name: "How are you (My friend) Johnny drille",
+                      albumType: "Single",
+                      duration: "5:16:00",
+                      favourite: true,
+                    },
+                  ]}
+                />
+              </>
             ) : (
               <Collections key={tab.name} />
             );
