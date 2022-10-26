@@ -28,7 +28,7 @@ export const Collections = () => {
       {collection.map((item) => (
         <div
           key={item.artist}
-          className="card cursor-pointer group overflow-hidden lg:w-52 lg:h-52 md:w-48 md:h-48 w-full h-60 rounded-2xl bg-gray-dark relative flex-shrink-0"
+          className="card cursor-pointer group overflow-hidden lg:w-52 lg:h-52 md:w-48 md:h-48 w-full h-60 rounded-2xl dark:bg-gray-dark bg-warmGray-200 relative flex-shrink-0"
         >
           <Image
             src={item.image}
@@ -37,14 +37,15 @@ export const Collections = () => {
             className="transition-all object-cover group-hover:scale-110 delay-75 object-center"
             priority
           />
-          <div className="card-footer absolute top-0 left-0 w-full h-full bg-gradient-to-t from-dark-100 to-transparent flex items-end p-3 overflow-hidden">
+          <div className="card-footer absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-dark dark:from-dark-100 to-transparent flex items-end p-3 overflow-hidden">
             <div
               className="transition w-full flex items-center justify-between delay-100 group-hover:-translate-y-2
                 "
             >
               <div>
-                <h3 className="font-medium">{item.album}</h3>
-                <p className="text-gray text-sm">{item.artist}</p>
+                <h3 className="font-medium dark:text-warmGray-300
+                 text-white">{item.album}</h3>
+                <p className="dark:text-warmGray-300 text-white text-sm">{item.artist}</p>
               </div>
 
               <button

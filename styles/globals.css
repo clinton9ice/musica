@@ -28,7 +28,6 @@ body {
   input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
-    position: relative;
     transition: all 1s linear;
   }
   input[type="range"]::-webkit-slider-thumb {

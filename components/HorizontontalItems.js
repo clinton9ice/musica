@@ -53,7 +53,7 @@ export const HorizontontalItems = ({ tag, items }) => {
               return (
                 <SwiperSlide key={content.id} className="mr-10 w-full group">
                   <div className="block group">
-                    <div className="group-item-h h-40 rounded-3xl w-40 bg-gray-dark relative overflow-hidden">
+                    <div className="group-item-h h-40 rounded-3xl w-40 bg-warmGray-200 dark:bg-gray-dark relative overflow-hidden">
                       <Image
                         src={`/images/${content.img}`}
                         alt={content.songName}
@@ -63,8 +63,8 @@ export const HorizontontalItems = ({ tag, items }) => {
                         className="w-full object-cover relative z-20 group-hover:-scale-x-100 transition-all"
                       ></Image>
 
-                      <div className="flex flex-col justify-end from-transparent to-amber-600 z-20 absolute bg-gradient-to-bl  left-0 bottom-0 h-full w-full p-3 overflow-hidden opacity-0 transition-opacity group-hover:opacity-100">
-                        <div className="flex transition-all flex-shrink-0 justify-between items-center translate-y-11 delay-150 group-hover:translate-y-0">
+                      <div className="flex flex-col justify-end from-transparent to-amber-600 z-20 absolute bg-gradient-to-bl  left-0 bottom-0 h-full w-full p-3 overflow-hidden lg:opacity-0 transition-opacity group-hover:opacity-100">
+                        <div className="flex transition-all flex-shrink-0 justify-between items-center lg:translate-y-11 delay-150 lg:group-hover:translate-y-0">
                           <h3 className="text-bold text-sm text-ellipsis overflow-hidden text-white">
                             {content.songName}
                           </h3>
@@ -88,7 +88,7 @@ export const HorizontontalItems = ({ tag, items }) => {
                       </div>
                     </div>
 
-                    <div className="group-item-f py-2 group-hover:opacity-0">
+                    <div className="group-item-f py-2 lg:group-hover:opacity-0">
                       <h4 className="text-sm dark:text-warmGray-300 font-medium transition-opacity">
                         {content.songName}
                       </h4>

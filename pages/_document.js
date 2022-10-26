@@ -17,7 +17,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="icon" href="/logo.svg" />
         </Head>
-        <body className="page-wrapper dark:bg-black dark:text-gray-light">
+        <body className="page-wrapper dark:bg-black bg-slate-50 dark:text-gray-light">
           <Main />
           <NextScript className="container m-auto" />
         </body>

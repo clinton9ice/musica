@@ -254,16 +254,26 @@ export const Player = ({ control }) => {
   }, [count, player, seek]);
 
   return (
-    <section className="backdrop-blur-lg  flex-wrap lg:nowrap rounded-md p-3 flex items-center justify-between fixed bottom-0 right-0 left-0 m-auto  z-50">
+    <section className="dark: backdrop-blur-lg flex-wrap lg:nowrap rounded-md p-3 flex items-center justify-between fixed bottom-0 right-0 left-0 m-auto  z-40">
       {/* ====Player Title=========== */}
       <div className="player-h flex flex-shrink-0 items-center  justify-between gap-3 cursor-pointer">
-        <div className="img-thumbnail h-12 w-12 rounded-md bg-warmGray-400 animate"></div>
+        <div className="img-thumbnail h-12 w-12 rounded-md dark:bg-warmGray-400 bg-warmGray-200 animate"></div>
         {player.items.map((i, c) => {
           if (i.selected) {
             return (
               <div className="details" key={c}>
-                <h2 className="text-white">{i.songTitle}</h2>
-                <p className="text-warmGray-300 artistName">{i.name}</p>
+                <h2
+                  className="dark:text-white whitespace-nowrap overflow-hidden font-medium text-ellipsis"
+                  style={{ maxWidth: "115px" }}
+                >
+                  {i.songTitle}
+                </h2>
+                <p
+                  className="dark:text-warmGray-300 artistName text-amber-300 whitespace-nowrap overflow-hidden font-medium text-ellipsis"
+                  style={{ maxWidth: "120px" }}
+                >
+                  {i.name}
+                </p>
               </div>
             );
           }
@@ -271,12 +281,12 @@ export const Player = ({ control }) => {
       </div>
       {/* =============/End======== */}
 
-      <div className="tracts w-full max-w-3xl ml-2 py-2 pt-4 lg:py-1">
+      <div className="tracts flex-1 mx-aut w-52 lg:w-full max-w-3xl ml-5 py-2 pt-4 lg:py-1">
         {/* =====Controls======== */}
-        <div className="control max-w-md m-auto flex items-center justify-between mb-5">
+        <div className="control max-w-md m-auto flex items-center justify-between lg:mb-5">
           <button
             onClick={() => setPlayer({ ...player, shuffle: !player.shuffle })}
-            className={`shufftle btn hover:text-amber-300 transition-all ${
+            className={`shufftle btn lg:hover:text-amber-300 transition-all invisible -z-10 absolute lg:relative lg:visible ${
               player.shuffle ? "text-amber-400" : ""
             }`}
           >
@@ -285,7 +295,7 @@ export const Player = ({ control }) => {
 
           <button
             onClick={prevTrack}
-            className="prev btn hover:text-amber-300 transition-all hover:bg-slate-800 h-10 w-10 rounded-full"
+            className="prev  btn lg:hover:text-amber-300 transition-all lg:hover:bg-warmGray-600 h-10 w-10 rounded-full"
           >
             <i className="ri ri-skip-back-fill"></i>
           </button>
@@ -311,14 +321,14 @@ export const Player = ({ control }) => {
 
           <button
             onClick={nextTrack}
-            className="next btn hover:text-amber-300 transition-all hover:bg-slate-800 h-10 w-10 rounded-full"
+            className="next btn lg:hover:text-amber-300 transition-all lg:hover:bg-warmGray-600 h-10 w-10 rounded-full"
           >
             <i className="ri ri-skip-forward-fill"></i>
           </button>
 
           <button
             onClick={loopTrack}
-            className={`repeat btn hover:text-amber-300 transition-all ${
+            className={`repeat btn lg:hover:text-amber-300 transition-all invisible -z-10 absolute lg:relative lg:visible ${
               player.loop ? "text-amber-400" : ""
             }`}
           >
@@ -334,7 +344,7 @@ export const Player = ({ control }) => {
         {/* =======Seeker tract =========== */}
         <input
           type="range"
-          className={`input after:bg-red-400  appearance-none rounded-full tracking-tight in-range:bg-dark-100 range w-full`}
+          className={`appearance-none invisible -z-10 absolute lg:relative lg:visible rounded-full dark:in-range:bg-dark-100 range w-full`}
           max={player.duration}
           onChange={onChangeSeek}
           id="seekSlider"
@@ -345,7 +355,7 @@ export const Player = ({ control }) => {
       {/* ==========Player Volume Set======== */}
       <div className="flex items-center lg:visible sm:invisible lg:relative sm:absolute justify-between gap-3">
         <div className="volume items-center hidden sm:flex">
-          <button className="btn text-white mr-2" onClick={muteAudio}>
+          <button className="btn dark:text-white mr-2" onClick={muteAudio}>
             {!player.muted ? (
               <i className="ri ri-volume-up-fill"></i>
             ) : (
@@ -354,7 +364,7 @@ export const Player = ({ control }) => {
           </button>
           <input
             type="range"
-            className="input w-full appearance-none in-range:bg-dark-100 rounded-lg h-2"
+            className="input w-full appearance-none dark:in-range:bg-dark-100 rounded-lg h-2"
             value={player.volume}
             id="audioVolume"
             onChange={() => setVolume({ type: "range" })}
