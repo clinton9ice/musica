@@ -4,12 +4,12 @@ export const Playlist = ({ playlist }) => {
   const [playlists, setPlaylist] = useState(playlist);
 
   return (
-    <ul className="list-group mt-10">
+    <ul className="list-group mt-10 w-full">
       {Array.isArray(playlists) && playlists.map((item) => {
         return (
           <li
             key={item.name}
-            className="flex flex-wrap justify-between pl-3 my-5 py-4 items-center dark:bg-dark-300 bg-warmGray-200 rounded-3xl hover:-translate-y-3 transition-all ease-linear lg:pr-6"
+            className="flex cursor flex-wrap lg:flex-nowrap justify-between pl-3 my-5 py-4 items-center dark:bg-dark-300 bg-warmGray-200 rounded-2xl hover:-translate-y-3 transition-all ease-linear lg:pr-6 w-full"
           >
             <div className="flex items-center justify-between w-full md:w-auto pr-4 image_section gap-4 mr-4">
               <div className="img-thumbnail w-20 h-20 lg:w-12 lg:h-12 rounded-md dark:bg-slate-700 bg-warmGray-400"></div>

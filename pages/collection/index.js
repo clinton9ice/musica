@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { useState } from "react";
 import { Collections, Likes, Playlist } from "../../components";
+import { motion } from "framer-motion";
 
 const Collection = () => {
   const [tabs, setTabs] = useState([
@@ -45,11 +46,14 @@ const Collection = () => {
         </div>
       </header>
 
-      <main className="container-fluid py-5 sm:px-3 lg:px-0">
+      <main className="container-fluid w-full py-5 sm:px-3 lg:px-0">
         {tabs.map((tab) => {
           if (tab.active) {
             return tab.name === "likes" ? (
-              <>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                >
                 <Likes key={tab.name} /> <br />
                 <Playlist
                   playlist={[
@@ -66,10 +70,15 @@ const Collection = () => {
                       favourite: true,
                     },
                   ]}
-                />
-              </>
+                  />
+                  </motion.div>
             ) : (
-              <Collections key={tab.name} />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                >
+                  <Collections key={tab.name} />
+                </motion.div>
             );
           }
         })}

@@ -25,9 +25,9 @@ export const Collections = () => {
 
   return (
     <div className="flex items-center flex-wrap gap-5">
-      {collection.map((item) => (
+      {collection.map((item, i) => (
         <div
-          key={item.artist}
+          key={i}
           className="card cursor-pointer group overflow-hidden lg:w-52 lg:h-52 md:w-48 md:h-48 w-full h-60 rounded-2xl dark:bg-gray-dark bg-warmGray-200 relative flex-shrink-0"
         >
           <Image

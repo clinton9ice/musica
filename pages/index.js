@@ -1,12 +1,7 @@
 import Head from "next/head";
-import {
-  Nav,
-  CuratedPlaylist,
-  TopCharts,
-  HorizontontalItems,
-  Player,
-} from "../components";
-import { useState } from "react";
+import { CuratedPlaylist, TopCharts, HorizontontalItems } from "../components";
+import musicContext from "../store/context";
+import { useState, useContext, useEffect } from "react";
 
 export default function Home() {
   const [release, setRelease] = useState([
@@ -67,6 +62,13 @@ export default function Home() {
       artistName: "Burna boy",
     },
   ]);
+  const { requestTracks, albums, newSongs, popularSongs } = useContext(musicContext);
+
+  useEffect(() => {
+    setTimeout(async () => {
+      await requestTracks();
+    }, 1000);
+  }, []);
 
   return (
     <>
@@ -81,13 +83,12 @@ export default function Home() {
       <>
         <div className="grid-cols-1 grid lg:grid-cols-2 items-start justify-between w-full flex-wrap">
           <CuratedPlaylist />
-          <TopCharts />
+          <TopCharts playList={ albums } />
         </div>
 
-        <HorizontontalItems tag={"new release"} items={release} />
-        <HorizontontalItems tag={"Hottest"} items={release} />
+        <HorizontontalItems tag={"new release"} items={newSongs} />
+        <HorizontontalItems tag={"Hottest"} items={popularSongs} />
       </>
-      
     </>
   );
 }

@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 export const Likes = () => {
   return (
     <div className="flex items-center flex-wrap gap-5">
@@ -12,10 +13,7 @@ export const Likes = () => {
         />
 
         <div className="card-footer absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-dark dark:from-dark-100 to-transparent flex items-end justify-between p-3 overflow-hidden">
-          <div
-            className="transition flex items-center justify-between w-full delay-100 group-hover:-translate-y-2
-                "
-          >
+          <div className="transition flex items-center justify-between w-full delay-100 group-hover:-translate-y-2">
             <div>
               <h3
                 className="font-medium dark:text-warmGray-300

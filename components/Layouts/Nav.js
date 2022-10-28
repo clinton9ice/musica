@@ -23,7 +23,7 @@ export const Nav = () => {
   const [isFocused, setFocus] = useState(false);
 
   return (
-    <nav className="header-navigation top-0 w-full left-0 bg-slate-50 dark:bg-black px-2 py-3 flex items-center z-50 sticky">
+    <nav className="header-navigation top-0 w-full left-0 backdrop-blur-xl from-slate-50 dark:to-transparent dark:from-black px-2 py-3 flex items-center z-50 sticky">
       <button
         onClick={toggleNav}
         className={`btn block p-2 rounded-md group relative visible z-10  lg:absolute lg:invisible lg:-z-10`}
@@ -45,9 +45,9 @@ export const Nav = () => {
           <Logo />
         </div>
       </div>
-      <div className="navBar-content ms-3 w-full ps-4  box-border">
+      <div className="navBar-content ms-3 ml-3 ps-4  box-border">
         {/* ====Search Input ===== */}
-        <form className="group  relative flex items-center" onSubmit={submit}>
+        <form className="group rounded-md dark:bg-black relative flex items-center" onSubmit={submit}>
           <button className="btn absolute top-2 text-slate-500 px-3">
             <i className="ri-search-line"></i>
           </button>

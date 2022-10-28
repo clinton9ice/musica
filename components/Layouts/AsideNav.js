@@ -40,7 +40,7 @@ export const AsideNav = () => {
   const router = useRouter();
   return (
     <section
-      className={`lg:mt-5 transition-all lg:w-auto lg:sticky lg:top-24 lg:z-40 lg:visible  rounded-md fixed overflow-hidden  left-0 top-20 max-w-xs h-full dark:bg-black bg-slate-50 lg:bg-transparent ${
+      className={`lg:mt-5 transition-all lg:w-auto lg:sticky lg:top-20 lg:z-40 lg:visible  rounded-md fixed overflow-hidden  left-0 top-20 max-w-xs h-full dark:bg-black bg-slate-50 lg:bg-transparent ${
         navOpen ? "z-50 visible w-72" : "-z-40 invisible w-0"
       }`}
     >
