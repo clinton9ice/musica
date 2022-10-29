@@ -1,5 +1,5 @@
 const path = require("path");
-import fetch from "node-fetch"
+import fetch from "node-fetch";
 
 // let dir = path.join("public/media/New");
 // let readFolder = require("../../utils/readFolder");
@@ -20,24 +20,28 @@ export default function handler(req, res) {
   //   }
   // });
 
-  fetch("https://api.deezer.com/chart/0")
+  fetch("https://musica-api.up.railway.app/new")
     .then((e) => e.json())
     .then((data) => {
       if (data) {
-        let directData = data?.tracks?.data;
-        directData?.map((track) => {
-          result.push({
-            id: track.id,
-            artist: track?.artist?.name,
-            title: track.title,
-            cover: track?.artist.picture_big,
-            audio: track?.preview,
-            category: "new",
+        if (Array.isArray(data)) {
+          data?.map((track, i) => {
+            result.push({
+              id: i,
+              artist: track?.artist,
+              title: track.title,
+              cover: track?.cover,
+              audio: track?.audio,
+              category: "new",
+            });
           });
-        });
+        }
       }
       res.status(200).json(result);
-    }).catch(() =>{
-      res.status(500).json({message: "Server  not available for the request"})
     })
+    .catch(() => {
+      res
+        .status(500)
+        .json({ message: "Server  not available for the request" });
+    });
 }

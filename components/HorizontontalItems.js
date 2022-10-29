@@ -66,19 +66,26 @@ export const HorizontontalItems = ({ tag, items }) => {
 
                       <div
                         className={`flex flex-col justify-end from-transparent to-amber-600 z-20 absolute bg-gradient-to-bl  left-0 bottom-0 h-full w-full ${
-                          content.id == playing?.id && playing?.category == content.category
+                          content.id == playing?.id &&
+                          playing?.category == content.category
                             ? "lg:opacity-100"
                             : "opacity-0"
                         } p-3 overflow-hidden  transition-opacity group-hover:opacity-100`}
                       >
                         <div
-                          className={`flex transition-all flex-shrink-0 justify-between group-hover:translate-y-0 items-center lg:translate-y-11  delay-150`}
+                          className={`flex transition-all flex-shrink-0 justify-between group-hover:translate-y-0 items-center ${
+                            content.id == playing?.id &&
+                            playing?.category == content.category
+                              ? "lg:translate-y-0"
+                              : "lg:translate-y-11"
+                          }   delay-150`}
                         >
                           <h3 className="text-bold text-sm text-ellipsis overflow-hidden text-white">
                             {content.artist}
                           </h3>
 
-                          {content.id == playing?.id && content.category === playing?.category ? (
+                          {content.id == playing?.id &&
+                          content.category === playing?.category ? (
                             player.playing ? (
                               <button
                                 type="button"
