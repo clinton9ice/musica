@@ -62,7 +62,8 @@ export default function Home() {
       artistName: "Burna boy",
     },
   ]);
-  const { requestTracks, albums, newSongs, popularSongs } = useContext(musicContext);
+  const { requestTracks, albums, popularSongs, foreignSongs, newSongs } =
+    useContext(musicContext);
 
   useEffect(() => {
     setTimeout(async () => {
@@ -83,11 +84,12 @@ export default function Home() {
       <>
         <div className="grid-cols-1 grid lg:grid-cols-2 items-start justify-between w-full flex-wrap">
           <CuratedPlaylist />
-          <TopCharts playList={ albums } />
+          <TopCharts playList={albums} />
         </div>
 
         <HorizontontalItems tag={"new release"} items={newSongs} />
-        <HorizontontalItems tag={"Hottest"} items={popularSongs} />
+        <HorizontontalItems tag={"Popular"} items={popularSongs} />
+        <HorizontontalItems tag={"Foreign"} items={foreignSongs} />
       </>
     </>
   );

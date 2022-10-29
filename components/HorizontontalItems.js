@@ -35,7 +35,7 @@ export const HorizontontalItems = ({ tag, items }) => {
       slidesPerView: 5,
     },
   });
-  const { selectTrack, pause } = useContext(musicContext);
+  const { selectTrack, pause, playing, player, play } = useContext(musicContext);
 
   return (
     <section className={" overflow-hidden max-w-5xl mx-auto my-14"}>
@@ -64,13 +64,39 @@ export const HorizontontalItems = ({ tag, items }) => {
                         className="w-full object-cover relative z-20 group-hover:-scale-x-100 transition-all"
                       ></Image>
 
-                      <div className="flex flex-col justify-end from-transparent to-amber-600 z-20 absolute bg-gradient-to-bl  left-0 bottom-0 h-full w-full p-3 overflow-hidden lg:opacity-0 transition-opacity group-hover:opacity-100">
-                        <div className="flex transition-all flex-shrink-0 justify-between items-center lg:translate-y-11 delay-150 lg:group-hover:translate-y-0">
+                      <div
+                        className={`flex flex-col justify-end from-transparent to-amber-600 z-20 absolute bg-gradient-to-bl  left-0 bottom-0 h-full w-full ${
+                          content.id == playing?.id && playing?.category == content.category
+                            ? "lg:opacity-100"
+                            : "opacity-0"
+                        } p-3 overflow-hidden  transition-opacity group-hover:opacity-100`}
+                      >
+                        <div
+                          className={`flex transition-all flex-shrink-0 justify-between group-hover:translate-y-0 items-center lg:translate-y-11  delay-150`}
+                        >
                           <h3 className="text-bold text-sm text-ellipsis overflow-hidden text-white">
                             {content.artist}
                           </h3>
 
-                          {!content.playing ? (
+                          {content.id == playing?.id && content.category === playing?.category ? (
+                            player.playing ? (
+                              <button
+                                type="button"
+                                onClick={pause}
+                                className="btn relative bg-amber-300 h-10 w-10 leading-5 flex-shrink-0  text-white rounded-full"
+                              >
+                                <i className="ri ri-pause-fill"></i>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={play}
+                                className="btn after:h-8 after:w-8 after:rounded-full after:border-2 after:border-amber-100 after:transition-all after:animate-ping after:absolute after:left-0 after:top-0 after:right-0 after:m-auto after:bottom-0  relative bg-amber-300 h-10 w-10 leading-5  text-white rounded-full flex-shrink-0"
+                              >
+                                <i className="ri ri-play-fill"></i>
+                              </button>
+                            )
+                          ) : (
                             <button
                               type="button"
                               onClick={() => {
@@ -79,14 +105,6 @@ export const HorizontontalItems = ({ tag, items }) => {
                               className="btn after:h-8 after:w-8 after:rounded-full after:border-2 after:border-amber-100 after:transition-all after:animate-ping after:absolute after:left-0 after:top-0 after:right-0 after:m-auto after:bottom-0  relative bg-amber-300 h-10 w-10 leading-5  text-white rounded-full flex-shrink-0"
                             >
                               <i className="ri ri-play-fill"></i>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={pause}
-                              className="btn relative bg-amber-300 h-10 w-10 leading-5 flex-shrink-0  text-white rounded-full"
-                            >
-                              <i className="ri ri-pause-fill"></i>
                             </button>
                           )}
                         </div>

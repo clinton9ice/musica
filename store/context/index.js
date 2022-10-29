@@ -17,18 +17,11 @@ export function MusicStore({ children }) {
 
   //============ Custom Player configuration=======
   const audioRef = useRef();
-  const trackPlayed = useRef(0);
+  const trackCount = useRef(0);
 
   const [player, setPlayer] = useState({
     duration: 100,
-    current: {
-      id: "new-2",
-      artist: "Ayra Starr",
-      duration: "3:05",
-      title: "Rush",
-      cover: "https://musica-api.up.railway.app/cover/cover_2.jpeg",
-      audio: "https://musica-api.up.railway.app/audio/audio_2.mp3",
-    },
+    current: "",
     selectedId: 1,
     selectedAlbum: "new",
     volume: 100,
@@ -37,6 +30,7 @@ export function MusicStore({ children }) {
     loop: false,
     shuffle: false,
     seeking: false,
+    timer: 0,
   });
 
   // =========Music Data=============
@@ -44,19 +38,17 @@ export function MusicStore({ children }) {
     albums: [],
     newSongs: [],
     popularSongs: [],
+    foreignSongs: [],
   });
   const [playList, addToPlaylist] = useState([]);
+  const [playing, setPlaying] = useState("");
   let [likes, setLikes] = useState([]);
   let [collection, setCollection] = useState([]);
 
   // ================
 
   //=================== Music Apis Request
-  let requests = [
-    "https://musica-api.up.railway.app/new",
-    "https://musica-api.up.railway.app/popular",
-    "https://musica-api.up.railway.app/playlist",
-  ];
+  let requests = ["/api/new","/api/popular", "/api/foreign"];
   const requestTracks = async () => {
     let req = requests.map(
       async (url) =>
@@ -65,10 +57,11 @@ export function MusicStore({ children }) {
           .then((data) => data)
           .catch((error) => new Error(error.message))
     );
+
     setData({
       newSongs: await req[0],
       popularSongs: await req[1],
-      albums: await req[2],
+      foreignSongs: await req[2],
     });
   };
   // ================/
@@ -90,7 +83,7 @@ export function MusicStore({ children }) {
 
     if (type === "range") {
       if (audioRef.current) {
-        if (audioRef.current.ready) {
+        if (audioRef.current?.readyState === 4) {
           audioRef.current.volume = player.volume / 100;
         }
       }
@@ -100,73 +93,66 @@ export function MusicStore({ children }) {
   };
 
   const play = async () => {
-    player.seeking = true;
     if (audioRef.current) {
       await audioRef.current.play();
       player.seeking = false;
-    } else {
-      createAudio(player.current.id);
-      trackPlayed.current = player.current.id;
+      setPlayer({
+        ...player,
+        playing: true,
+      });
     }
-
-    setPlayer({
-      ...player,
-      playing: true,
-    });
   };
 
-  const createAudio = useCallback(
-    (aId) => {
-      player.seeking = true;
-      // Check for selected track
-      try {
-        let [type, id] = aId?.split("-");
-        id = Number(id);
-        // Reload the Audio Constructor
+  const selectTrack = useCallback(
+    (content) => {
+      if (content) {
+        let { id, category } = content;
+        trackCount.current = id;
+        player.seeking = true;
+
+        // Reload the Audio Play Track
         audioRef.current && audioRef.current?.load();
+
         if (audioRef.current) {
           // Assign the set volume value to the construtor on default
           audioRef.current.volume = player.volume / 100;
           audioRef.current.muted = player.muted;
         }
-        if (type == "new") {
-          audioRef.current = new Audio(data.newSongs[id - 1]?.audio);
-        }
 
-        if (type == "popular") {
-          audioRef.current = new Audio(data.popularSongs[id - 1]?.audio);
+        switch (category) {
+          case "new":
+            addToPlaylist(data.newSongs);
+            audioRef.current = new Audio(data.newSongs[id]?.audio);
+            break;
+          case "popular":
+            addToPlaylist(data.popularSongs);
+            audioRef.current = new Audio(data.popularSongs[id]?.audio);
+            break;
+          case "foreign":
+            addToPlaylist(data.foreignSongs);
+            audioRef.current = new Audio(data.foreignSongs[id]?.audio);
+            break;
+          case "album":
+            addToPlaylist(data.albums);
+            break;
+
+          default:
+            break;
         }
-      } catch (error) {
-        alert("Something went wrong " + error.message);
-        throw error.message;
+        trackCount.current = content.id;
+        setPlaying(content);
+
+        setPlayer({
+          ...player,
+          selectedAlbum: category,
+          selectedId: id,
+        });
       }
     },
-    [data.newSongs, data.popularSongs, player]
+    [data.newSongs, data.popularSongs, data.albums, player]
   );
 
-  const selectTrack = (content) => {
-    if (content) {
-      const [type, id] = content?.id.split("-");
-      player.selectedId = id;
-      player.selectedAlbum = type;
-      player.current = content;
-      trackPlayed.current = id;
-
-      // Reload the Audio Play Track
-      audioRef.current && audioRef.current?.load();
-
-      if (type === "new") {
-        addToPlaylist(data.newSongs);
-      } else if (type === "popular") {
-        addToPlaylist(data.popularSongs);
-      } else if (type === "album") {
-        addToPlaylist(data.albums);
-      }
-      createAudio(content?.id);
-    }
-  };
-
-  const seekRange = (e) => {
+  const audioRange = (e) => {
     if (audioRef.current) {
       let slideTractVal =
         Math.floor(audioRef.current?.duration) * (e.target.value / 100);
@@ -190,23 +176,35 @@ export function MusicStore({ children }) {
       seekSlider.style.setProperty("--seeker", seekSlider.value + "%");
     }
   }
-  const playFrom = (index) => {
-    // Check for shuffling
-    if (player.shuffle) shuffle();
-    // Reload the Audio Play Track
-    audioRef.current && audioRef.current.load();
-    player.seeking = true;
-    audioRef.current = new Audio(playList[index].audio);
-    player.current = playList[index];
-    play();
 
-    player.loop
-      ? (audioRef.current.loop = true)
-      : (audioRef.current.loop = false);
+  const playFrom = (index) => {
+    if (audioRef.current) {
+      // Get the next track
+      let playingItem = playList[index];
+      // Check for shuffling
+      if (player.shuffle) shuffle();
+      // Reload the Audio Play Track
+      audioRef.current && audioRef.current.load();
+      audioRef.current = new Audio(playingItem.audio);
+      setPlaying(playingItem);
+      play();
+
+      setPlayer({
+        ...player,
+        selectedAlbum: playingItem.category,
+        selectedId: index,
+      });
+
+      player.loop
+        ? (audioRef.current.loop = true)
+        : (audioRef.current.loop = false);
+    }
   };
 
-  function seektimeupdate() {
-    // var nt = audio.currentTime * (100 / audio.duration);
+  function timeUpdate() {
+    var time =
+      audioRef.current?.currentTime * (100 / audioRef.current?.duration);
+    console.log(time);
     // seekslider.value = nt;
     // var curmins = Math.floor(audio.currentTime / 60);
     // var cursecs = Math.floor(audio.currentTime - curmins * 60);
@@ -229,31 +227,20 @@ export function MusicStore({ children }) {
   }
 
   const nextTrack = () => {
-    if (trackPlayed.current === playList.length - 1) {
+    if (!audioRef.current) return false;
+    if (trackCount.current === playList.length - 1) {
+      trackCount.current = 0;
       playFrom(0);
-    } else if (playList.length === trackPlayed.current) {
-      addToPlaylist(data.newSongs);
-    } else if (trackPlayed.current < playList.length - 1) {
-      trackPlayed.current++;
-      if (trackPlayed.current == player.selectedId) {
-        trackPlayed.current += 1;
-      }
-      playFrom(trackPlayed.current - 1);
+    } else {
+      trackCount.current++;
+      playFrom(trackCount.current);
     }
   };
 
   const prevTrack = () => {
-    if (trackPlayed.current > 0) {
-      trackPlayed.current--;
-      // Reload the Audio Play Traack
-      audioRef.current.load();
-      playList.map((tracks, i) => {
-        if (i === trackPlayed.current) {
-          playFrom(i);
-        }
-      });
-    } else {
-      pause();
+    if (trackCount.current > 0) {
+      trackCount.current--;
+      playFrom(trackCount.current);
     }
   };
 
@@ -283,7 +270,7 @@ export function MusicStore({ children }) {
   };
 
   const shuffle = () => {
-    let list = player.playList;
+    let list = playList;
     let listLength = list.length,
       t,
       i;
@@ -308,13 +295,7 @@ export function MusicStore({ children }) {
     let event;
     if (audioRef.current) {
       event = setTimeout(() => {
-        if (audioRef.current.networkState == 2) {
-          setPlayer({ ...player, playing: false, seeking: true });
-        } else {
-          setPlayer({ ...player, playing: true, seeking: false });
-        }
-
-        audioRef.current.addEventListener("waiting", () => {
+        audioRef.current.addEventListener("loadstart", () => {
           setPlayer({ ...player, playing: false, seeking: true });
         });
 
@@ -324,15 +305,15 @@ export function MusicStore({ children }) {
         });
 
         audioRef.current.addEventListener("ended", () => {
-          console.log("ended");
-          setPlayer({ ...player, playing: false, seeking: false });
+          if (trackCount.current !== playList.length - 1) return nextTrack();
         });
       }, 100);
     }
     return () => {
       clearTimeout(event);
     };
-  }, [audioRef.current?.currentTime, audioRef.current?.networkState]);
+  }, [audioRef.current?.networkState]);
+
   // ===============
 
   // ===========Add search history
@@ -377,16 +358,17 @@ export function MusicStore({ children }) {
         playerVolume,
         nextTrack,
         prevTrack,
-        createAudio,
         pause,
         play,
-        seekRange,
+        audioRange,
         muteAudio,
         loopTrack,
         seek,
         selectTrack,
         shuffle,
+        playing,
         time: audioRef.current?.currentTime,
+        controller: audioRef,
       }}
     >
       {children}

@@ -12,52 +12,55 @@ export const Player = () => {
     nextTrack,
     prevTrack,
     play,
-    shuffle,
     pause,
-    seekRange,
+    shuffle,
+    audioRange,
     muteAudio,
     loopTrack,
-    requestTracks,
     seek,
-    time,
+    playing,
+    controller,
   } = useContext(musicContext);
 
   useEffect(() => {
-    setSeeking(player.seeking);
-    return () => {};
-  }, [player]);
-
-  //   return () => {
-  //     document.querySelector("#seekSlider").value = 0;
-  //     clearTimeout(event);
-  //     // Check to know when the song has ended to move to the next track
-  //     if (audioRef.current) {
-  //       audioRef.current.addEventListener("ended", () => {
-  //         nextTrack();
-  //       });
-  //     }
-  //   };
-  // }, [player, seek, nextTrack]);
+    return () => {
+      setInterval(() => {
+        seek();
+      }, controller.current?.currentTime);
+    };
+  }, [seek, controller.current?.currentTime]);
 
   return (
     <section className="backdrop-blur-sm dark:from-dark-300 from-warmGray-50 bg-gradient-to-r  flex-wrap lg:nowrap rounded-t-xl p-3 flex items-center justify-between fixed bottom-0 right-0 left-0 m-auto  z-40">
       {/* ====Player Title=========== */}
       <div className="player-h flex flex-shrink-0 items-center  justify-between gap-3 cursor-pointer">
-        <div className="img-thumbnail overflow-hidden h-12 w-12 relative rounded-md dark:bg-warmGray-400 bg-warmGray-200 animate">
-          <Image src={player.current?.cover} alt={player.current?.title} className="object-cover" unoptimized layout="fill"priority/>
-        </div>
+        {!playing?.cover ? (
+          <div className="img-thumbnail overflow-hidden h-12 w-12 relative rounded-md dark:bg-warmGray-400 bg-warmGray-200 animate- "></div>
+        ) : (
+          <div className="img-thumbnail overflow-hidden h-12 w-12 relative rounded-md dark:bg-warmGray-400 bg-warmGray-200 animate">
+            <Image
+              src={playing?.cover}
+              alt={playing?.title}
+              className="object-cover text-sm"
+              unoptimized
+              layout="fill"
+              priority
+            />
+          </div>
+        )}
+
         <div className="details">
           <h2
             className="dark:text-white whitespace-nowrap overflow-hidden font-medium text-ellipsis"
             style={{ maxWidth: "115px" }}
           >
-            {player.current?.title}
+            {playing?.title}
           </h2>
           <p
             className="dark:text-warmGray-300 artistName text-amber-300 whitespace-nowrap overflow-hidden font-medium text-ellipsis"
             style={{ maxWidth: "120px" }}
           >
-            {player.current?.artist}
+            {playing?.artist}
           </p>
         </div>
       </div>
@@ -134,7 +137,7 @@ export const Player = () => {
           type="range"
           className={`appearance-none invisible -z-10 absolute lg:relative lg:visible lg:z-10 rounded-full dark:in-range:bg-dark-100 range w-full`}
           max={player.duration}
-          onChange={seekRange}
+          onChange={audioRange}
           id="seekSlider"
         />
         {/* ========== */}
