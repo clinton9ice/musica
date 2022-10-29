@@ -48,7 +48,7 @@ export function MusicStore({ children }) {
   // ================
 
   //=================== Music Apis Request
-  let requests = ["/api/new","/api/popular", "/api/foreign"];
+  let requests = ["/api/popular", "/api/foreign", "/api/new"];
   const requestTracks = async () => {
     let req = requests.map(
       async (url) =>
@@ -59,9 +59,9 @@ export function MusicStore({ children }) {
     );
 
     setData({
-      newSongs: await req[0],
-      popularSongs: await req[1],
-      foreignSongs: await req[2],
+      popularSongs: await req[0],
+      foreignSongs: await req[1],
+      newSongs: await req[2],
     });
   };
   // ================/

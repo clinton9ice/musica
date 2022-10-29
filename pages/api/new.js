@@ -37,5 +37,7 @@ export default function handler(req, res) {
         });
       }
       res.status(200).json(result);
-    });
+    }).catch(() =>{
+      res.status(500).json({message: "Server  not available for the request"})
+    })
 }

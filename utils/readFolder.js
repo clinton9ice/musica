@@ -1,4 +1,3 @@
-const { rejects } = require("assert");
 const fs = require("fs");
 const path = require("path");
 function readDir(dir, fn) {
@@ -20,7 +19,7 @@ function readDir(dir, fn) {
           track.songs.push(
             `${dir
               .replaceAll("\\", "/")
-              .replace("public", process.env.URL)}/${file}/${items}`
+              .replace("public", "")}/${file}/${items}`
           );
         // Get the mp3 images
         if (path.extname(items) === ".jpg" || path.extname(items) === ".png")
