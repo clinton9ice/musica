@@ -48,7 +48,7 @@ export function MusicStore({ children }) {
   // ================
 
   //=================== Music Apis Request
-  let requests = ["/api/popular", "/api/foreign", "/api/new"];
+  let requests = ["/api/popular", "/api/foreign", "/api/new", "/api/album"];
   const requestTracks = async () => {
     let req = requests.map(
       async (url) =>
@@ -62,6 +62,7 @@ export function MusicStore({ children }) {
       popularSongs: await req[0],
       foreignSongs: await req[1],
       newSongs: await req[2],
+      albums: await req[3],
     });
   };
   // ================/
@@ -308,7 +309,7 @@ export function MusicStore({ children }) {
           if (trackCount.current !== playList.length - 1) return nextTrack();
         });
       }, 100);
-    }
+    } else seek();
     return () => {
       clearTimeout(event);
     };

@@ -24,9 +24,12 @@ export const Player = () => {
 
   useEffect(() => {
     return () => {
-      setInterval(() => {
-        seek();
-      }, controller.current?.currentTime);
+      if (playing) {
+        setInterval(() => {
+          seek();
+          console.log("Emmited");
+        }, controller.current?.currentTime);
+      }
     };
   }, [seek, controller.current?.currentTime]);
 

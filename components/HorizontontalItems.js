@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef } from "react";
 import Image from "next/image";
 import musicContext from "../store/context";
 
-import { Section } from "./Section";
+import { HorizontalLoader } from "./Loader";
 
 export const HorizontontalItems = ({ tag, items }) => {
   const breakpoints = useRef({
@@ -35,23 +35,31 @@ export const HorizontontalItems = ({ tag, items }) => {
       slidesPerView: 5,
     },
   });
-  const { selectTrack, pause, playing, player, play } = useContext(musicContext);
+  const { selectTrack, pause, playing, player, play } =
+    useContext(musicContext);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const event = setTimeout(() => setData(items), 1000);
+    return () => {
+      clearTimeout(event);
+    };
+  }, [items]);
 
   return (
-    <section className={" overflow-hidden max-w-5xl mx-auto my-14"}>
+    <section className={"overflow-hidden max-w-5xl mx-auto my-14"}>
       <h2 className="text-xl mb-5 font-medium capitalize">{tag || "Tag"}</h2>
       <br />
-      <div className="relative overflow-hidden">
-        <Swiper
-          spaceBetween={1}
-          slidesPerView={5}
-          speed="500"
-          css="true"
-          breakpoints={breakpoints.current}
-        >
-          {Array.isArray(items) &&
-            items.length > 0 &&
-            items.map((content) => {
+      {data && Array.isArray(data) && data.length > 0 ? (
+        <div className="relative overflow-hidden">
+          <Swiper
+            spaceBetween={1}
+            slidesPerView={5}
+            speed="500"
+            css="true"
+            breakpoints={breakpoints.current}
+          >
+            {data.map((content) => {
               return (
                 <SwiperSlide key={content.id} className="mr-10 w-full group">
                   <div className="block group">
@@ -130,8 +138,11 @@ export const HorizontontalItems = ({ tag, items }) => {
                 </SwiperSlide>
               );
             })}
-        </Swiper>
-      </div>
+          </Swiper>
+        </div>
+      ) : (
+        <HorizontalLoader />
+      )}
     </section>
   );
 };

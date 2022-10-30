@@ -62,7 +62,7 @@ export default function Home() {
       artistName: "Burna boy",
     },
   ]);
-  const { requestTracks, albums, popularSongs, foreignSongs, newSongs } =
+  const { requestTracks, albums, popularSongs, newSongs } =
     useContext(musicContext);
 
   useEffect(() => {
@@ -84,12 +84,12 @@ export default function Home() {
       <>
         <div className="grid-cols-1 grid lg:grid-cols-2 items-start justify-between w-full flex-wrap">
           <CuratedPlaylist />
-          <TopCharts playList={albums} />
+          <TopCharts albumList={albums} />
         </div>
 
         <HorizontontalItems tag={"new release"} items={newSongs} />
         <HorizontontalItems tag={"Popular"} items={popularSongs} />
-        <HorizontontalItems tag={"Foreign"} items={foreignSongs} />
+        {/* <HorizontontalItems tag={"Foreign"} items={foreignSongs} />`   */}
       </>
     </>
   );
