@@ -26,7 +26,7 @@ export const TopCharts = ({ albumList }) => {
 
   return (
     <section className={`w-full max-w-xl lg:px-10 py-5 ml-auto`}>
-      <h2 className=" text-xl font-medium">Top Charts</h2>
+      <h2 className=" text-xl font-medium pb-3">Top Charts</h2>
       <ul
         className="list overflow-y-auto py-4 pr-2"
         style={{ maxHeight: "350px" }}

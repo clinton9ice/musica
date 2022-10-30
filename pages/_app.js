@@ -33,6 +33,7 @@ function MyApp({ Component, pageProps, router }) {
             key={router.route}
             variants={variants}
             exit={{ opacity: 0 }}
+            className="w-full"
           >
             <div className="w-full pb-28 min-h-full max-w-7xl px-4 mx-auto mb-auto relative">
               <Component {...pageProps} />
