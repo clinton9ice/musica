@@ -7,7 +7,8 @@ import musicContext, { MusicStore } from "../store/context";
 import { AsideNav, Player, Nav } from "../components";
 import { AnimatePresence, motion } from "framer-motion";
 import Progressbar from "nextjs-progressbar";
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
+
 
 function MyApp({ Component, pageProps, router }) {
   const [variants] = useState({
