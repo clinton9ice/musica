@@ -179,27 +179,26 @@ export default function handler(req, res) {
       ],
     },
   ];
-  let newDatas = [];
-  //   fetch("https://musica-api.up.railway.app/playlist")
-  //     .then((d) => d.json())
-  //     .then((Result) => {
-  //       if (Result) {
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       res.status(500).json({ message: error.message });
-  //     });
-  data = data.map((item, i) => {
-    let { files } = item;
+    fetch("https://musica-api.up.railway.app/playlist")
+      .then((d) => d.json())
+      .then((Result) => {
+        if (Result) {
+           data = data.map((item, i) => {
+             let { files } = item;
 
-    if (files && Array.isArray(files)) {
-      item.files = files.map((tracks, e) => ({
-        ...tracks,
-        id: e,
-        category: "album",
-      }));
-    }
-    return item;
-  });
-  res.status(200).json(data);
+             if (files && Array.isArray(files)) {
+               item.files = files.map((tracks, e) => ({
+                 ...tracks,
+                 id: e,
+                 category: "album",
+               }));
+             }
+             return item;
+           });
+        }
+         res.status(200).json(data);
+      })
+      .catch((error) => {
+        res.status(500).json({ message: error.message });
+      });
 }
