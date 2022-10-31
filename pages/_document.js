@@ -34,7 +34,7 @@ class MyDocument extends Document {
           />
           <meta
             name="keywords"
-            content="music, sportify, audiomack, songs,player, music sites"
+            content="music, sportify, audiomack, songs,player, music sites, nusica, muzica"
           />
           <meta name="robots" content="index, follow" />
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

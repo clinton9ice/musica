@@ -1,8 +1,7 @@
 import React from "react";
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import musicContext from "../store/context";
 import Image from "next/image";
-// import { Spinner } from "./Icons";
 
 export const Player = () => {
   let [seeking, setSeeking] = useState(false);
@@ -27,7 +26,6 @@ export const Player = () => {
       if (playing) {
         setInterval(() => {
           seek();
-          console.log("Emmited");
         }, controller.current?.currentTime);
       }
     };

@@ -48,8 +48,9 @@ export function MusicStore({ children }) {
   // ================
 
   //=================== Music Apis Request
-  let requests = ["/api/popular", "/api/foreign", "/api/new", "/api/album"];
-  const requestTracks = async () => {
+
+  const requestTracks = useCallback(async () => {
+    let requests = ["/api/popular", "/api/foreign", "/api/new", "/api/album"];
     let req = requests.map(
       async (url) =>
         await fetch(url)
@@ -64,7 +65,7 @@ export function MusicStore({ children }) {
       newSongs: await req[2],
       albums: await req[3],
     });
-  };
+  }, []);
   // ================/
 
   const playerVolume = (e) => {
@@ -105,7 +106,7 @@ export function MusicStore({ children }) {
   };
 
   const selectTrack = useCallback(
-    (content) => {
+    (content, album) => {
       if (content) {
         let { id, category } = content;
         trackCount.current = id;
@@ -133,11 +134,10 @@ export function MusicStore({ children }) {
             addToPlaylist(data.foreignSongs);
             audioRef.current = new Audio(data.foreignSongs[id]?.audio);
             break;
-          case "album":
-            addToPlaylist(data.albums);
-            break;
 
-          default:
+          case "album":
+            addToPlaylist(album? album: []);
+            audioRef.current = new Audio(content?.audio);
             break;
         }
         trackCount.current = content.id;
@@ -312,6 +312,7 @@ export function MusicStore({ children }) {
     } else seek();
     return () => {
       clearTimeout(event);
+      requestTracks();
     };
   }, [audioRef.current?.networkState]);
 

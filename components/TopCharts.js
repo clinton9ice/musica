@@ -32,10 +32,10 @@ export const TopCharts = ({ albumList }) => {
         style={{ maxHeight: "350px" }}
       >
         {albums && Array.isArray(albums) && albums.length > 0 ? (
-          albums.map((album) => {
+          albums.map((album, i) => {
             return (
               <li
-                key={album?.artist}
+                key={i}
                 className="py-3 px-5 mb-3 bg-slate-50 dark:bg-dark-100 w-full flex flex-wrap lg:flex-nowrap relative list-none items-center justify-between rounded-xl overflow-hidden transition after:absolute after:left-0 after:bottom-0 after:h-full after:from-amber-400 after:to-transparent after:w-0 after:bg-gradient-to-tr after:rounded-xl after:transition-all after:ease-linear after:delay-200 shadow-xl lg:leading-9 after:opacity-0 after:hover:opacity-100 hover:after:w-full  group cursor-pointer ease-linear"
               >
                 {/* =====Image & Content-section===== */}

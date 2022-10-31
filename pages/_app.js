@@ -3,7 +3,7 @@ import "../styles/output.css";
 import "remixicon/fonts/remixicon.css";
 // Import Swiper styles
 import "swiper/css";
-import musicContext, { MusicStore } from "../store/context";
+import { MusicStore } from "../store/context";
 import { AsideNav, Player, Nav } from "../components";
 import { AnimatePresence, motion } from "framer-motion";
 import Progressbar from "nextjs-progressbar";
