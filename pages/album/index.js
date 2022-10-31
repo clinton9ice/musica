@@ -33,7 +33,7 @@ export default function Index() {
     return () => {
       clearTimeout(event);
     };
-  }, [pId, albums]);
+  }, [pId]);
 
   return (
     <>

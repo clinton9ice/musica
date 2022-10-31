@@ -125,22 +125,26 @@ export function MusicStore({ children }) {
           case "new":
             addToPlaylist(data.newSongs);
             audioRef.current = new Audio(data.newSongs[id]?.audio);
+            trackCount.current = trackPos(data.newSongs, content.id);
             break;
           case "popular":
             addToPlaylist(data.popularSongs);
             audioRef.current = new Audio(data.popularSongs[id]?.audio);
+            trackCount.current = trackPos(data.popularSongs, content.id);
             break;
           case "foreign":
             addToPlaylist(data.foreignSongs);
             audioRef.current = new Audio(data.foreignSongs[id]?.audio);
+            trackCount.current = trackPos(data.foreignSongs, content.id);
             break;
 
           case "album":
-            addToPlaylist(album? album: []);
+            addToPlaylist(album ? album : []);
             audioRef.current = new Audio(content?.audio);
+            trackCount.current = trackPos(album, content.id);
             break;
         }
-        trackCount.current = content.id;
+
         setPlaying(content);
 
         setPlayer({
@@ -150,8 +154,19 @@ export function MusicStore({ children }) {
         });
       }
     },
-    [data.newSongs, data.popularSongs, data.albums, player]
+    [data.newSongs, data.popularSongs, data.foreignSongs, player]
   );
+
+  const trackPos = (arr, id) => {
+    var item, n;
+    for (let i = 0; i < arr.length; i++) {
+      item = arr[i];
+      if (item.id === id) {
+        n = arr.indexOf(item);
+        return n;
+      }
+    }
+  };
 
   const audioRange = (e) => {
     if (audioRef.current) {
