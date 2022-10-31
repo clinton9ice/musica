@@ -294,6 +294,7 @@ export function MusicStore({ children }) {
 
   useEffect(() => {
     let event;
+    requestTracks();
     if (audioRef.current) {
       event = setTimeout(() => {
         audioRef.current.addEventListener("loadstart", () => {
@@ -312,7 +313,6 @@ export function MusicStore({ children }) {
     } else seek();
     return () => {
       clearTimeout(event);
-      requestTracks();
     };
   }, [audioRef.current?.networkState]);
 
