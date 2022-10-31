@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { v4 as uid } from "uuid"
 export default function handler(req, res) {
   let data = [];
   fetch("https://musica-api.up.railway.app/playlist")
@@ -11,7 +12,7 @@ export default function handler(req, res) {
           if (files && Array.isArray(files)) {
             item.files = files.map((tracks, e) => ({
               ...tracks,
-              id: e,
+              id: uid(),
               category: "album",
             }));
           }
