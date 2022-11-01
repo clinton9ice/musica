@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { CuratedPlaylist, TopCharts, HorizontontalItems } from "../components";
 import musicContext from "../store/context";
-import {useContext } from "react";
+import { useContext } from "react";
 
 export default function Home() {
   const { albums, popularSongs, newSongs } = useContext(musicContext);
@@ -17,8 +17,9 @@ export default function Home() {
       </Head>
 
       <>
-        <div className="grid-cols-1 grid lg:grid-cols-2 items-start justify-between w-full flex-wrap">
+        <div className="lg:flex  items-start justify-between w-full flex-wrap pb-4">
           <CuratedPlaylist />
+
           <TopCharts albumList={albums} />
         </div>
 

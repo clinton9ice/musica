@@ -25,7 +25,7 @@ export const TopCharts = ({ albumList }) => {
   }, [albumList]);
 
   return (
-    <section className={`lg:w-full max-w-md lg:max-w-xl lg:px-10 py-5 lg:ml-auto`}>
+    <section className={`flex-shrink-0 ml-3 lg:max-w-xl lg:px-10 py-5 lg:ml-auto`}>
       <h2 className=" text-xl font-medium pb-3">Top Charts</h2>
       <ul
         className="list overflow-y-auto py-4 pr-2"

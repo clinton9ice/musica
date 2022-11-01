@@ -25,9 +25,8 @@ export const CuratedPlaylist = () => {
   ]);
 
   return (
-    <Section>
       <div
-        className={`card overflow-hidden lg:hover:overflow-visible hover:from-amber-400 hover:to-green hover:bg-gradient-to-bl flex justify-between rounded-3xl py-2 px-4 h-96 relative bg-gradient-to-t from-cyan-600 to-green text-white group w-full`}
+        className={`overflow-hidden sm:mb-10 hover:from-amber-400 hover:to-green hover:bg-gradient-to-bl flex justify-between rounded-3xl py-2 px-4 h-96 relative bg-gradient-to-t from-cyan-600 to-green text-white group flex-1 items-center`}
       >
         <div className="flex flex-col justify-around relative z-20 w-full">
           <div className="card-head">
@@ -82,7 +81,7 @@ export const CuratedPlaylist = () => {
         <div className="absolute -z- right-0 h-full lg:static w-full">
           {/* =====Animated Effect =========*/}
           <div
-            className={`animate-pulse overflow-hidden rounded-3xl flex flex-row-reverse lg:flex-row justify-end absolute h-full w-full max-h-96 -top-28 lg:top-0 lg:left-0 -rotate-90 lg:rotate-0  ml-10 pointer-events-none ${Style.rotateEffect}`}
+            className={`animate-pulse overflow-hidden rounded-3xl flex flex-row-reverse lg:flex-row justify-end absolute right h-full w-[130%] max-h-96 -top-28 lg:top-0 lg:left-0 -rotate-90 lg:rotate-0  ml-10 pointer-events-none ${Style.rotateEffect}`}
           >
             <Image
               src={"/icons/LayerEffect.svg"}
@@ -109,7 +108,6 @@ export const CuratedPlaylist = () => {
           {/* ================ */}
         </div>
       </div>
-    </Section>
   );
 };
 

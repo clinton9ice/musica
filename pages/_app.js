@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps, router }) {
             exit={{ opacity: 0 }}
             className="w-full"
           >
-            <div className="w-full pb-28 min-h-full max-w-6xl px-4 mr-auto mb-auto relative">
+            <div className="w-full pb-28 min-h-full max-w-6xl px-4 mx-auto mb-auto relative">
               <Component {...pageProps} />
             </div>
           </motion.div>
