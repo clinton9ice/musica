@@ -307,11 +307,54 @@ export function MusicStore({ children }) {
     return list;
   };
 
+  const addToCollection = (item) => {
+    let collection = localStorage.getItem("collection");
+
+    if (!collection && !Array.isArray(collection) && item) {
+      localStorage.setItem("collection", JSON.stringify([item]));
+    }
+
+    if (!collectionExists(item) && item) {
+      collection = JSON.parse(collection);
+
+      localStorage.setItem("collection", JSON.stringify([...collection, item]));
+    }
+  };
+
+  const collectionExists = useCallback((id) => {
+    let collection = localStorage.getItem("collection");
+    let alreadyExists = false;
+    if (collection) {
+      collection = JSON.parse(collection);
+      collection.find((item) => {
+        if (item.id === id.id) alreadyExists = true;
+      });
+    }
+    return alreadyExists;
+  }, []);
+
+  const getCollections = () => {
+    let res = localStorage.getItem("collection");
+    if (res) res = JSON.parse(res);
+    return res;
+  };
+
+  const removeCollection = (item) => {
+    let collection = JSON.parse(localStorage.getItem("collection"));
+    collection = collection.filter((i) => i.id !== item.id);
+    localStorage.setItem("collection", JSON.stringify(collection));
+  };
+
+  const addToLikes = (item) => {
+    console.log(item);
+  };
+
   useEffect(() => {
     let event;
     requestTracks();
-    if (audioRef.current) {
-      event = setTimeout(() => {
+
+    event = setTimeout(() => {
+      if (audioRef.current) {
         audioRef.current.addEventListener("loadstart", () => {
           setPlayer({ ...player, playing: false, seeking: true });
         });
@@ -324,12 +367,14 @@ export function MusicStore({ children }) {
         audioRef.current.addEventListener("ended", () => {
           if (trackCount.current !== playList.length - 1) return nextTrack();
         });
-      }, 100);
-    } else seek();
+      }
+    }, 1000);
+    seek();
+
     return () => {
       clearTimeout(event);
     };
-  }, [audioRef.current?.networkState]);
+  }, [requestTracks]);
 
   // ===============
 
@@ -386,6 +431,11 @@ export function MusicStore({ children }) {
         playing,
         time: audioRef.current?.currentTime,
         controller: audioRef,
+        addToLikes,
+        addToCollection,
+        removeCollection,
+        getCollections,
+        collectionExists,
       }}
     >
       {children}

@@ -17,12 +17,7 @@ class MyDocument extends Document {
       <Html lang="en" className="dark">
         <Head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
           <meta name="copyright" content="Copyright (c) Musica (9ice__guy)" />
-
           <meta name="googlebot" content="index, follow" />
           <meta name="publisher" content="https://muzica.vercel.app" />
           <meta name="msapplication-tap-highlight" content="no" />

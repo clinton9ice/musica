@@ -8,7 +8,7 @@ import { AsideNav, Player, Nav } from "../components";
 import { AnimatePresence, motion } from "framer-motion";
 import Progressbar from "nextjs-progressbar";
 import { useState } from "react";
-
+import Head from "next/head";
 
 function MyApp({ Component, pageProps, router }) {
   const [variants] = useState({
@@ -25,6 +25,9 @@ function MyApp({ Component, pageProps, router }) {
         options={{ showSpinner: false }}
       />
       <Nav />
+      <Head>
+        <meta name="viewport" content="viewport-fit=cover" />
+      </Head>
       <div className="lg:flex items-start">
         <AsideNav />
         <AnimatePresence mode={"wait"}>
@@ -36,7 +39,7 @@ function MyApp({ Component, pageProps, router }) {
             exit={{ opacity: 0 }}
             className="w-full"
           >
-            <div className="w-full pb-28 min-h-full max-w-7xl px-4 mx-auto mb-auto relative">
+            <div className="w-full pb-28 min-h-full max-w-6xl px-4 mr-auto mb-auto relative">
               <Component {...pageProps} />
             </div>
           </motion.div>

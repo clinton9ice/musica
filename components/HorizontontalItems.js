@@ -47,7 +47,7 @@ export const HorizontontalItems = ({ tag, items }) => {
   }, [items]);
 
   return (
-    <section className={"overflow-hidden max-w-5xl mx-auto my-14"}>
+    <section className={"overflow-hidden max-w-6xl mx-auto my-14"}>
       <h2 className="text-xl mb-5 font-medium capitalize">{tag || "Tag"}</h2>
       <br />
       {data && Array.isArray(data) && data.length > 0 ? (

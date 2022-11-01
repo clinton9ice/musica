@@ -25,7 +25,7 @@ export const TopCharts = ({ albumList }) => {
   }, [albumList]);
 
   return (
-    <section className={`w-full max-w-xl lg:px-10 py-5 ml-auto`}>
+    <section className={`lg:w-full max-w-md lg:max-w-xl lg:px-10 py-5 lg:ml-auto`}>
       <h2 className=" text-xl font-medium pb-3">Top Charts</h2>
       <ul
         className="list overflow-y-auto py-4 pr-2"
@@ -69,7 +69,6 @@ export const TopCharts = ({ albumList }) => {
                   </button>
                 ) : (
                   <button
-                    // onClick={() => like(chart.album)}
                     className="btn border ml-2  relative z-10 rounded-full bg-amber-500 border-amber-300 dark:bg-dark-300 transition-all hover:bg-transparent hover:text-amber-500 dark:hover:text-white hover:border-amber-300 w-10 h-10"
                   >
                     <i className="ri ri-heart-fill"></i>

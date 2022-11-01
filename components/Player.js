@@ -4,7 +4,6 @@ import musicContext from "../store/context";
 import Image from "next/image";
 
 export const Player = () => {
-  let [seeking, setSeeking] = useState(false);
   const {
     player,
     playerVolume,
