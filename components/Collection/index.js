@@ -19,7 +19,7 @@ export const Collections = () => {
 
   return (
     <div className="flex items-center flex-wrap gap-5">
-      {collection.length > 0 ? (
+      {collection && collection.length > 0 ? (
         collection.map((item, i) => (
           <div
             key={item?.title}
