@@ -56,20 +56,7 @@ const Collection = () => {
                 >
                 <Likes key={tab.name} /> <br />
                 <Playlist
-                  playlist={[
-                    {
-                      name: "(Odo) Kizz Daniel Ft Empire",
-                      albumType: "Feature",
-                      duration: "2:56:00",
-                      favourite: false,
-                    },
-                    {
-                      name: "How are you (My friend) Johnny drille",
-                      albumType: "Single",
-                      duration: "5:16:00",
-                      favourite: true,
-                    },
-                  ]}
+                  playlist={[]}
                   />
                   </motion.div>
             ) : (

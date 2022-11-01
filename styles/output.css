@@ -2447,6 +2447,10 @@ input#seeker::-webkit-slider-runnable-track,
     padding-top: 0px;
   }
 
+  .lg\:pl-8 {
+    padding-left: 2rem;
+  }
+
   .lg\:leading-9 {
     line-height: 2.25rem;
   }

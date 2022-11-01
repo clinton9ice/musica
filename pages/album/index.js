@@ -89,7 +89,7 @@ export default function Index() {
           )}
 
           <div className="relative">
-            <div className="flex flex-col items-start gap-6 pt-16 pl-8 sm:pl-4 md:flex-row md:items-end">
+            <div className="flex flex-wrap lg:flex-nowrap flex-col items-start gap-6 pt-16 lg:pl-8 pl-0 md:flex-row md:items-end">
               <div className="relative w-40 h-40 md:w-60 md:h-60 lg:w-64 lg:h-64 flex-shrink-0">
                 {data?.cover ? (
                   <Image

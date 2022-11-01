@@ -10,7 +10,6 @@ export const Collections = () => {
   useEffect(() => {
     let e = setTimeout(() => {
       setCollection(getCollections());
-      // console.log();
     }, 100);
     return () => {
       clearTimeout(e);
